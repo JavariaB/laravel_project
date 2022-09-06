@@ -26,7 +26,7 @@
             <label class="form-label" for="email">Email</label>
         </div>
         <div class="form-control-wrap">
-            <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" class="form-control form-control-lg" placeholder="Enter your email address">
+            <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" class="form-control form-control-lg" placeholder="Enter your email address" readonly>
         </div>
     </div>
     <div class="form-group">
