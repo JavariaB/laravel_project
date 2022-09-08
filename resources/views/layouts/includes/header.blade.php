@@ -43,8 +43,8 @@
                                     <em class="icon ni ni-user-alt"></em>
                                 </div>
                                 <div class="user-info d-none d-md-block">
-                                    <div class="user-name dropdown-indicator">Super Admin</div>
-                                    <div class="user-status">Administrator</div>
+                                    <div class="user-name dropdown-indicator">{{ auth()->user()->name }}</div>
+                                    <div class="user-status">Admin</div>
                                 </div>
                             </div>
                         </a>
@@ -55,8 +55,8 @@
                                         <span>SA</span>
                                     </div>
                                     <div class="user-info">
-                                        <span class="lead-text">Super Admin</span>
-                                        <span class="sub-text">admin@therightsw.com</span>
+                                        <span class="lead-text">{{ auth()->user()->name }}</span>
+                                        <span class="sub-text">{{ auth()->user()->email }}</span>
                                     </div>
                                 </div>
                             </div>

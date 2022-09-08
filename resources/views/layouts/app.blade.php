@@ -27,7 +27,7 @@
                 @include('layouts.includes.header')
                 <!-- main header @e -->
                 <!-- content @s -->
-                @yield('home')
+                @yield('content')
                 <!-- content @e -->
                 <!-- footer @s -->
                 @include('layouts.includes.footer')

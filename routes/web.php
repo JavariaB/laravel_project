@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers as Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware('auth');
+Route::get('/', function() {
+    return redirect('dashboard');
+});
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('dashboard', [Controllers\HomeController::class, 'index'])->name('dashboard');
+
+    Route::resource('categories', Controllers\CategoryController::class);
+    Route::resource('products', Controllers\ProductController::class);
+});
 
 require __DIR__ . '/auth.php';

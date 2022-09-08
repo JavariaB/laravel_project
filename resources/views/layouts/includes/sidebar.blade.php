@@ -1,4 +1,3 @@
-<!-- sidebar @s -->
 <div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-menu-trigger">
@@ -11,20 +10,31 @@
                 <img class="logo-dark logo-img" src="{{asset('images/logo-dark.png')}}" srcset="{{asset('images/logo-dark2x.png 2x')}}" alt="logo-dark">
             </a>
         </div>
-    </div><!-- .nk-sidebar-element -->
+    </div>
     <div class="nk-sidebar-element nk-sidebar-body">
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
                     <li class="nk-menu-item">
-                        <a href="javascript:void(0);" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                        <a href="{{ route('dashboard') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
-                    </li><!-- .nk-menu-item -->
-                </ul><!-- .nk-menu -->
-            </div><!-- .nk-sidebar-menu -->
-        </div><!-- .nk-sidebar-content -->
-    </div><!-- .nk-sidebar-element -->
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('categories.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
+                            <span class="nk-menu-text">Categories</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('products.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
+                            <span class="nk-menu-text">Products</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- sidebar @e -->
