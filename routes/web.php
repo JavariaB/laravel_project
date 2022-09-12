@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/categories/dt', [Controllers\CategoryController::class, 'datatable'])->name('categories.dt');
     Route::resource('categories', Controllers\CategoryController::class);
 
+    Route::get('/products/dt', [Controllers\ProductController::class, 'datatable'])->name('products.dt');
     Route::resource('products', Controllers\ProductController::class);
 });
 

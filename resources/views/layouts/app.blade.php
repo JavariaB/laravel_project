@@ -12,7 +12,7 @@
 
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('css/dashlite.css?ver=2.9.1') }}">
-    @yield('styles')
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -39,6 +39,15 @@
     <!-- JavaScript -->
     <script src="{{ asset('js/bundle.js?ver=2.9.1') }}"></script>
     <script src="{{ asset('js/scripts.js?ver=2.9.1') }}"></script>
+    <script>
+        $.extend(true, $.fn.dataTable.defaults, {
+            oLanguage: {
+                sSearch: '',
+                sSearchPlaceholder: 'Type in to Search',
+                sLengthMenu: 'Show _MENU_',
+            }
+        });
+    </script>
     @yield('script')
 </body>
 

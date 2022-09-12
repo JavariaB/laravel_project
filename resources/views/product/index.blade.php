@@ -31,23 +31,64 @@
                         </div>
                     </div>
                 </div>
-                <div class="card card-preview">
-                    <div class="card-inner">
-                        <table class="table">
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Action</th>
-                            </tr>
-                            <tr>
-                                <td colspan="4"> No Data Available </td>
-                            </tr>
-                        </table>
+                <div class="nk-block">
+                    <div class="card card-bordered card-stretch">
+                        <div class="card-inner-group">
+                            <div class="card-inner position-relative card-tools-toggle">
+                                <table id="products-dt" class="table">
+                                    <thead>
+                                        <tr class="nk-tb-item nk-tb-head">
+                                            <th><span class="sub-text">#</span></th>
+                                            <th><span class="sub-text">Name</span></th>
+                                            <th><span class="sub-text">Description</span></th>
+                                            <th><span class="sub-text">Category</span></th>
+                                            <!-- <th><span class="sub-text">Actions</span></th> -->
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $("#products-dt").DataTable({
+        ajax: '{{ route("products.dt") }}',
+        processing: true,
+        serverSide: true,
+        scrollX: false,
+        autoWidth: true,
+        stateSave: true,
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'id',
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'description',
+                name: 'description'
+            },
+            {
+                data: 'category',
+                name: 'category'
+            },
+            // {data: 'actions', name: 'actions', orderable: false, searchable: false},
+        ],
+
+        createdRown: function(row, data, index) {
+            $(row).addClass('nk-tb-item');
+        }
+    });
+</script>
 @endsection
