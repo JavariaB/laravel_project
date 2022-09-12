@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
+    "content-hash": "77473b5478e9cd5cbe9c9c629b356b18",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -733,6 +733,59 @@
                 "url"
             ],
             "time": "2022-08-28T14:45:39+00:00"
+        },
+        {
+            "name": "laravel/breeze",
+            "version": "v1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "e98e855ab4bde5bf0083c4a4d73c0f5b474241ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/e98e855ab4bde5bf0083c4a4d73c0f5b474241ae",
+                "reference": "e98e855ab4bde5bf0083c4a4d73c0f5b474241ae",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^8.42|^9.0",
+                "illuminate/support": "^8.42|^9.0",
+                "illuminate/validation": "^8.42|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "time": "2022-06-28T11:52:06+00:00"
         },
         {
             "name": "laravel/framework",
@@ -4242,6 +4295,77 @@
                 "validate"
             ],
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yajra/laravel-datatables-oracle",
+            "version": "v9.21.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/laravel-datatables.git",
+                "reference": "a7fd01f06282923e9c63fa27fe6b391e21dc321a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/a7fd01f06282923e9c63fa27fe6b391e21dc321a",
+                "reference": "a7fd01f06282923e9c63fa27fe6b391e21dc321a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.8.*|^6|^7|^8|^9",
+                "illuminate/filesystem": "5.8.*|^6|^7|^8|^9",
+                "illuminate/http": "5.8.*|^6|^7|^8|^9",
+                "illuminate/support": "5.8.*|^6|^7|^8|^9",
+                "illuminate/view": "5.8.*|^6|^7|^8|^9",
+                "php": "^7.1.3|^8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8|^4.0|^5.0|^6.0|^7.0"
+            },
+            "suggest": {
+                "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTables.",
+                "yajra/laravel-datatables-editor": "Plugin to use DataTables Editor (requires a license).",
+                "yajra/laravel-datatables-fractal": "Plugin for server-side response using Fractal.",
+                "yajra/laravel-datatables-html": "Plugin for server-side HTML builder of dataTables."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Yajra\\DataTables\\DataTablesServiceProvider"
+                    ],
+                    "aliases": {
+                        "DataTables": "Yajra\\DataTables\\Facades\\DataTables"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ],
+                "psr-4": {
+                    "Yajra\\DataTables\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com"
+                }
+            ],
+            "description": "jQuery DataTables API for Laravel 5|6|7|8|9",
+            "keywords": [
+                "datatables",
+                "jquery",
+                "laravel"
+            ],
+            "time": "2022-07-12T04:48:03+00:00"
         }
     ],
     "packages-dev": [

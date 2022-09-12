@@ -12,6 +12,7 @@
 
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('css/dashlite.css?ver=2.9.1') }}">
+    @yield('styles')
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -38,6 +39,7 @@
     <!-- JavaScript -->
     <script src="{{ asset('js/bundle.js?ver=2.9.1') }}"></script>
     <script src="{{ asset('js/scripts.js?ver=2.9.1') }}"></script>
+    @yield('script')
 </body>
 
 </html>

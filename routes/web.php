@@ -21,8 +21,11 @@ Route::get('/', function() {
 Route::group(['middleware' => 'auth'], function() {
     Route::get('dashboard', [Controllers\HomeController::class, 'index'])->name('dashboard');
 
+    Route::get('/categories/dt', [Controllers\CategoryController::class, 'datatable'])->name('categories.dt');
     Route::resource('categories', Controllers\CategoryController::class);
+
     Route::resource('products', Controllers\ProductController::class);
 });
+
 
 require __DIR__ . '/auth.php';
