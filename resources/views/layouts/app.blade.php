@@ -39,15 +39,6 @@
     <!-- JavaScript -->
     <script src="{{ asset('js/bundle.js?ver=2.9.1') }}"></script>
     <script src="{{ asset('js/scripts.js?ver=2.9.1') }}"></script>
-    <script>
-        $.extend(true, $.fn.dataTable.defaults, {
-            oLanguage: {
-                sSearch: '',
-                sSearchPlaceholder: 'Type in to Search',
-                sLengthMenu: 'Show _MENU_',
-            }
-        });
-    </script>
     @yield('script')
 </body>
 

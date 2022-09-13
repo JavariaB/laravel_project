@@ -20,7 +20,7 @@
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <a href="javascript:void(0);" class="btn btn-primary">
+                                            <a href="{{ route('products.create') }}" class="btn btn-primary">
                                                 <em class="icon ni ni-plus"></em>
                                                 <span>Add Product</span>
                                             </a>
