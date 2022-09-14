@@ -35,13 +35,18 @@
                     <div class="card card-bordered card-stretch">
                         <div class="card-inner-group">
                             <div class="card-inner position-relative card-tools-toggle">
+                                @if (session()->has('success'))
+                                <div class="alert alert-success">
+                                    <b>Yahoo!</b> {{ session()->get('success') }}
+                                </div>
+                                @endif
                                 <table id="categories-dt" class="table">
                                     <thead>
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th><span class="sub-text">#</span></th>
                                             <th><span class="sub-text">Name</span></th>
                                             <th><span class="sub-text">Description</span></th>
-                                            <!-- <th><span class="sub-text">Actions</span></th> -->
+                                            <th><span class="sub-text">Actions</span></th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -78,7 +83,12 @@
                 data: 'description',
                 name: 'description'
             },
-            // {data: 'actions', name: 'actions', orderable: false, searchable: false},
+            {
+                data: 'actions',
+                name: 'actions',
+                orderable: false,
+                searchable: false
+            },
         ],
 
         createdRown: function(row, data, index) {
