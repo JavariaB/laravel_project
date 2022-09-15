@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Categories')
+@section('title', (isset($product->id) ? 'Update' : 'Add') . ' Category')
 
 @section('content')
 <div class="nk-content ">
