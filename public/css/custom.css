@@ -41,3 +41,7 @@ div.dataTables_wrapper div.dataTables_filter input,
 .dual-listbox .dual-listbox__search {
     border: 1px solid #EBEEF4;
 }
+
+.swal2-cancel {
+    color: black !important;
+}

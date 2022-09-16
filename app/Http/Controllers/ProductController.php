@@ -18,73 +18,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::get();
-        return view('product.create', [
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-            'categories' => $categories,
-        ]);
+        return view('product.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -100,7 +34,7 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'category_id' => $request->input('category_id'),
+            'category_id' => $request->input('category'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
@@ -123,7 +57,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'description' => 'nullable',
-            'category_id' => 'required|exists:categories,id'
+            'category' => 'required|exists:categories,id'
         ]);
 
         if ($validator->fails()) {
@@ -134,9 +68,9 @@ class ProductController extends Controller
         if (empty($product)) abort(404);
 
         $product->update([
+            'category_id' => $request->input('category'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'category_id' => $request->input('category_id'),
         ]);
 
         return redirect()->intended(route('products.index'))->with('success', 'Prodcut has been updated successfully.');
@@ -147,7 +81,9 @@ class ProductController extends Controller
         $product = Product::whereId($id)->first();
         if (empty($product)) abort(404);
 
-        return redirect()->intended(route('products.index'))->with('success', 'Product has been deleted successfully.');
+        $product->delete();
+
+        return response()->json(['message' => 'Record deleted successfully.'], 200);
     }
 
     public function datatable()
@@ -169,17 +105,18 @@ class ProductController extends Controller
         });
 
         $dt->addColumn('actions', function ($record) {
-            return '<form action="'.route('products.destroy', $record->id).'" method="POST">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                    <input type="hidden" name="_method" value="delete" />
-                        <button type="submit" class="btn btn-success">Delete</button>
-                    </form>';
+            return '<a href="' . route('products.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#products-dt">
+                        <span class="ni ni-trash"></span>
+                    </a>
+
+                    <a href="' . route('products.edit', $record->id) . '" class="btn btn-sm btn-primary">
+                        <span class="ni ni-edit"></span>
+                    </a>';
         });
 
         $dt->rawColumns(['name', 'category', 'description', 'actions']);
         $dt->addIndexColumn();
-        
-        return $dt->make(true);
 
+        return $dt->make(true);
     }
 }

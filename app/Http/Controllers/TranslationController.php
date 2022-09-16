@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Translation;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class TranslationController extends Controller
 {
     public function index()
     {
-        return view('category.index');
+        return view('translation.index');
     }
 
     public function create()
     {
-        return view('category.create');
+        return view('translation.create');
     }
 
     public function store(Request $request)
@@ -30,20 +30,20 @@ class CategoryController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors()->first());
         }
 
-        Category::create([
+        Translation::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->intended(route('categories.index'))->with('success', 'Category has been added successfully.');
+        return redirect()->intended(route('translations.index'))->with('success', 'Translation has been added successfully.');
     }
 
     public function edit($id)
     {
-        $category = Category::whereId($id)->first();
-        if (empty($category)) abort(404);
+        $translation = Translation::whereId($id)->first();
+        if (empty($translation)) abort(404);
 
-        return view('category.create', compact('category'));
+        return view('translation.create', compact('translation'));
     }
 
     public function update(Request $request, $id)
@@ -57,34 +57,34 @@ class CategoryController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors()->first());
         }
 
-        $category = Category::whereId($id)->first();
-        if (empty($category)) abort(404);
+        $translation = Translation::whereId($id)->first();
+        if (empty($translation)) abort(404);
 
-        $category->update([
+        $translation->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->intended(route('categories.index'))->with('success', 'Category has been updated successfully.');
+        return redirect()->intended(route('translations.index'))->with('success', 'Translation has been updated successfully.');
     }
 
     public function destroy($id)
     {
-        $category = Category::whereId($id)->first();
-        if (empty($category)) abort(404);
+        $translation = Translation::whereId($id)->first();
+        if (empty($translation)) abort(404);
 
-        $category->delete();
+        $translation->delete();
 
         return response()->json(['message' => 'Record deleted successfully.'], 200);
     }
 
     public function datatable()
     {
-        $category = Category::get();
-        $dt = DataTables::of($category);
+        $translation = Translation::get();
+        $dt = DataTables::of($translation);
 
         $dt->addColumn('name', function ($record) {
-            return '<a href="' . route('categories.edit', $record->id) . '">' . $record->name . '</a>';
+            return '<a href="' . route('translations.edit', $record->id) . '">' . $record->name . '</a>';
         });
 
         $dt->addColumn('description', function ($record) {
@@ -92,11 +92,11 @@ class CategoryController extends Controller
         });
 
         $dt->addColumn('actions', function ($record) {
-            return '<a href="' . route('categories.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#categories-dt">
+            return '<a href="' . route('translations.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#translations-dt">
                         <span class="ni ni-trash"></span>
                     </a>
 
-                    <a href="' . route('categories.edit', $record->id) . '" class="btn btn-sm btn-primary">
+                    <a href="' . route('translations.edit', $record->id) . '" class="btn btn-sm btn-primary">
                         <span class="ni ni-edit"></span>
                     </a>';
         });

@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/products/dt', [Controllers\ProductController::class, 'datatable'])->name('products.dt');
     Route::resource('products', Controllers\ProductController::class)->except(['show']);
+
+    Route::get('/translations/dt', [Controllers\TranslationController::class, 'datatable'])->name('translations.dt');
+    Route::resource('translations', Controllers\TranslationController::class)->except(['show']);
 });
 
 require __DIR__ . '/auth.php';

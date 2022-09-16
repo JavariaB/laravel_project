@@ -36,12 +36,14 @@
                                             @php 
                                                 $categoryId = '';
                                                 if (isset($product->category_id)) $categoryId = $product->category_id; 
-                                                if (old('category')) $categoryId = old('category'); 
+                                                if (old('category')) $categoryId = old('category');
                                             @endphp
                                             <select name="category" id="category-filter" class="form-control">
                                                 <option value="" selected disabled>-- Choose a category --</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}" {{ $categoryId == $category->id ? 'selected' : '' }}>{{ ucwords($category->name) }}</option>
+                                                    <option value="{{ $category->id }}" {{ $categoryId == $category->id ? 'selected' : '' }}>
+                                                        {{ ucwords($category->name) }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

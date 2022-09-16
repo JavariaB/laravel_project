@@ -11,6 +11,7 @@
     <title>@yield('title')</title>
 
     <!-- StyleSheets  -->
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashlite.css?ver=2.9.1') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
@@ -37,8 +38,11 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="{{ mix('/js/app.js') }}"></script>
     <script src="{{ asset('js/bundle.js?ver=2.9.1') }}"></script>
     <script src="{{ asset('js/scripts.js?ver=2.9.1') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+
     <script>
         $.extend(true, $.fn.dataTable.defaults, {
             oLanguage: {

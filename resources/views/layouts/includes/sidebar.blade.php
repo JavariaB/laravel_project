@@ -33,6 +33,12 @@
                             <span class="nk-menu-text">Products</span>
                         </a>
                     </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('translations.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-tranx"></em></span>
+                            <span class="nk-menu-text">Translations</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
