@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
-class ProductController extends Controller
+class RoleController extends Controller
 {
     public function index()
     {
-        return view('product.index');
+        return view('role.index');
     }
 
     public function create()
     {
-        $categories = Category::get();
-        return view('product.create', compact('categories'));
+        $permissions = Permission::get();
+        return view('role.create', compact('permissions'));
     }
 
     public function store(Request $request)
@@ -73,7 +75,7 @@ class ProductController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->intended(route('products.index'))->with('success', 'Product has been updated successfully.');
+        return redirect()->intended(route('products.index'))->with('success', 'Prodcut has been updated successfully.');
     }
 
     public function destroy($id)
@@ -88,33 +90,29 @@ class ProductController extends Controller
 
     public function datatable()
     {
-        $product = Product::with('category')->get();
+        $roles = Role::get();
 
-        $dt = DataTables::of($product);
+        $dt = DataTables::of($roles);
 
         $dt->addColumn('name', function ($record) {
-            return '<a href="' . route('products.edit', $record->id) . '">' . $record->name . '</a>';
+            return '<a href="' . route('roles.edit', $record->id) . '">' . $record->name . '</a>';
         });
 
-        $dt->addColumn('category', function ($record) {
-            return optional($record->category)->name;
-        });
-
-        $dt->addColumn('description', function ($record) {
-            return $record->description;
+        $dt->addColumn('created_at', function ($record) {
+            return $record->created_at;
         });
 
         $dt->addColumn('actions', function ($record) {
-            return '<a href="' . route('products.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#products-dt">
+            return '<a href="' . route('roles.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#roles-dt">
                         <span class="ni ni-trash"></span>
                     </a>
 
-                    <a href="' . route('products.edit', $record->id) . '" class="btn btn-sm btn-primary">
+                    <a href="' . route('roles.edit', $record->id) . '" class="btn btn-sm btn-primary">
                         <span class="ni ni-edit"></span>
                     </a>';
         });
 
-        $dt->rawColumns(['name', 'category', 'description', 'actions']);
+        $dt->rawColumns(['name', 'created_at', 'actions']);
         $dt->addIndexColumn();
 
         return $dt->make(true);

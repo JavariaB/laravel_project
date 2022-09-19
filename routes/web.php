@@ -29,6 +29,13 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/translations/dt', [Controllers\TranslationController::class, 'datatable'])->name('translations.dt');
     Route::resource('translations', Controllers\TranslationController::class)->except(['show']);
+    
+    Route::get('/users/dt', [Controllers\UserController::class, 'datatable'])->name('users.dt');
+    Route::resource('users', Controllers\UserController::class)->except(['show']);
+    
+    Route::get('/roles/dt', [Controllers\RoleController::class, 'datatable'])->name('roles.dt');
+    Route::resource('roles', Controllers\RoleController::class)->except(['show']);
+    // Route::resource('users', TranslationController::class);
 });
 
 require __DIR__ . '/auth.php';

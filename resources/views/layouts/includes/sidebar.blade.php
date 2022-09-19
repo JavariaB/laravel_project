@@ -22,6 +22,12 @@
                         </a>
                     </li>
                     <li class="nk-menu-item">
+                        <a href="{{ route('users.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                            <span class="nk-menu-text">Users</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
                         <a href="{{ route('categories.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
                             <span class="nk-menu-text">Categories</span>
@@ -35,8 +41,14 @@
                     </li>
                     <li class="nk-menu-item">
                         <a href="{{ route('translations.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-tranx"></em></span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-text"></em></span>
                             <span class="nk-menu-text">Translations</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('roles.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-pie"></em></span>
+                            <span class="nk-menu-text">Roles</span>
                         </a>
                     </li>
                 </ul>
