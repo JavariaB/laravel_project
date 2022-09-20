@@ -41,8 +41,14 @@
                     </li>
                     <li class="nk-menu-item">
                         <a href="{{ route('translations.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-text"></em></span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-text2"></em></span>
                             <span class="nk-menu-text">Translations</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('notifications.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-bell"></em></span>
+                            <span class="nk-menu-text">Notifications</span>
                         </a>
                     </li>
                     <li class="nk-menu-item">

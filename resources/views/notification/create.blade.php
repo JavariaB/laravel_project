@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', (isset($user->id) ? 'Update' : 'Add') . ' User')
+@section('title', (isset($notification->id) ? 'Update' : 'Add') . ' Notification')
 
 @section('content')
 <div class="nk-content ">
@@ -10,7 +10,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">{{ isset($user->id) ? 'Update' : 'Add' }} User</h3>
+                            <h3 class="nk-block-title page-title">{{ isset($notification->id) ? 'Update' : 'Add' }} Notification</h3>
                         </div>
                     </div>
                 </div>
@@ -24,34 +24,34 @@
                                         <b>Error: </b> {{ $errors->first() }}
                                     </div>
                                     @endif
-                                    <form action="{{ isset($user->id) && !empty($user->id) ? route('users.update', $user->id) : route('users.store') }}" method="post">
+                                    <form action="{{ isset($notification->id) && !empty($notification->id) ? route('notifications.update', $notification->id) : route('notifications.store') }}" method="post">
                                         @csrf()    
 
-                                        @if (isset($user->id))
+                                        @if (isset($notification->id))
                                         <input type="hidden" name="_method" value="put">
                                         @endif
 
                                         <div class="form-group">
                                             <label for="name" class="control-label">Name <span class="text-danger">*<span></label>
                                             @php 
-                                                $userName = '';
-                                                if (isset($user->name)) $userName = $user->name; 
-                                                if (old('name')) $userName = old('name'); 
+                                                $notificationName = '';
+                                                if (isset($notification->name)) $notificationName = $notification->name; 
+                                                if (old('name')) $notificationName = old('name'); 
                                             @endphp
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter user name" value="{{ $userName }}">
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter notification name" value="{{ $notificationName }}">
                                         </div>
                                         <div class="form-group">
                                             @php 
-                                                $userDescription = '';
-                                                if (isset($user->description)) $userDescription = $user->description; 
-                                                if (old('description')) $userDescription = old('description'); 
+                                                $notificationDescription = '';
+                                                if (isset($notification->description)) $notificationDescription = $notification->description; 
+                                                if (old('description')) $notificationDescription = old('description'); 
                                             @endphp
                                             <label for="description" class="control-label">Description</label>
-                                            <textarea name="description" id="description" class="form-control" placeholder="Enter user description">{{ $userDescription }}</textarea>
+                                            <textarea name="description" id="description" class="form-control" placeholder="Enter notification description">{{ $notificationDescription }}</textarea>
                                         </div>
 
                                         <div class="form-group text-right mt-4">
-                                            <a href="{{ route('users.index') }}" class="btn btn-light">Cancel</a>
+                                            <a href="{{ route('notifications.index') }}" class="btn btn-light">Cancel</a>
                                             <button type="submit" class="btn btn-success">Save</button>
                                         </div>
                                     </form>
