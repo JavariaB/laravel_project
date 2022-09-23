@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Translations')
+@section('title', 'Language Lines')
 
 @section('content')
 <div class="nk-content ">
@@ -10,24 +10,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Translations</h3>
-                        </div>
-                        <div class="nk-block-head-content">
-                            <div class="toggle-wrap nk-block-tools-toggle">
-                                <a href="javascript:void(0);" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu">
-                                    <em class="icon ni ni-more-v"></em>
-                                </a>
-                                <div class="toggle-expand-content" data-content="pageMenu">
-                                    <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <a href="{{ route('translations.create') }}" class="btn btn-primary">
-                                                <em class="icon ni ni-plus"></em>
-                                                <span>Add Translation</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <h3 class="nk-block-title page-title">Language Lines</h3>
                         </div>
                     </div>
                 </div>
@@ -40,12 +23,14 @@
                                     <b>Yahoo!</b> {{ session()->get('success') }}
                                 </div>
                                 @endif
-                                <table id="translations-dt" class="table">
+                                <table id="language-lines-dt" class="table">
                                     <thead>
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th><span class="sub-text">#</span></th>
-                                            <th><span class="sub-text">Name</span></th>
-                                            <th><span class="sub-text">Description</span></th>
+                                            <th><span class="sub-text">Group</span></th>
+                                            <th><span class="sub-text">Key</span></th>
+                                            <th><span class="sub-text">Text (English)</span></th>
+                                            <th><span class="sub-text">Text (Arabic)</span></th>
                                             <th><span class="sub-text">Actions</span></th>
                                         </tr>
                                     </thead>
@@ -62,8 +47,8 @@
 
 @section('script')
 <script>
-    $("#translations-dt").DataTable({
-        ajax: '{{ route("translations.dt") }}',
+    $("#language-lines-dt").DataTable({
+        ajax: '{{ route("language-lines.dt") }}',
         processing: true,
         serverSide: true,
         scrollX: false,
@@ -76,12 +61,20 @@
                 searchable: false
             },
             {
-                data: 'name',
-                name: 'name'
+                data: 'group',
+                name: 'group'
             },
             {
-                data: 'description',
-                name: 'description'
+                data: 'key',
+                name: 'key'
+            },
+            {
+                data: 'text_en',
+                name: 'text_en'
+            },
+            {
+                data: 'text_ar',
+                name: 'text_ar'
             },
             {
                 data: 'actions',
@@ -90,7 +83,6 @@
                 searchable: false
             },
         ],
-
         createdRown: function(row, data, index) {
             $(row).addClass('nk-tb-item');
         }

@@ -27,8 +27,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/products/dt', [Controllers\ProductController::class, 'datatable'])->name('products.dt');
     Route::resource('products', Controllers\ProductController::class)->except(['show']);
 
-    Route::get('/translations/dt', [Controllers\TranslationController::class, 'datatable'])->name('translations.dt');
-    Route::resource('translations', Controllers\TranslationController::class)->except(['show']);
+    Route::get('/language-lines/dt', [Controllers\LanguageLinesController::class, 'datatable'])->name('language-lines.dt');
+    Route::resource('language-lines', Controllers\LanguageLinesController::class)->except(['show']);
 
     Route::get('/notifications/dt', [Controllers\NotificationController::class, 'datatable'])->name('notifications.dt');
     Route::resource('notifications', Controllers\NotificationController::class)->except(['show']);

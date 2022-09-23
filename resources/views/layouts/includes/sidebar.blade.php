@@ -40,9 +40,9 @@
                         </a>
                     </li>
                     <li class="nk-menu-item">
-                        <a href="{{ route('translations.index') }}" class="nk-menu-link">
+                        <a href="{{ route('language-lines.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-text2"></em></span>
-                            <span class="nk-menu-text">Translations</span>
+                            <span class="nk-menu-text">Language Lines</span>
                         </a>
                     </li>
                     <li class="nk-menu-item">
