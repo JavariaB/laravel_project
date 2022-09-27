@@ -14,10 +14,10 @@ class LanguageLineSeeder extends Seeder
      */
     public function run()
     {
-        LanguageLine::create([
-            'group' => 'validation',
-            'key' => 'required',
-            'text' => ['en' => 'This is a required field', 'ar' => 'هذا مجال مطلوب'],
-        ]);
+        $lines = [
+            ['group' => 'category', 'key' => 'page_title', 'text' => json_encode(['en' => 'Categories', 'ar' => 'مطلوب'])],
+        ];
+
+        LanguageLine::insert($lines);
     }
 }

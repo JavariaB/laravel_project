@@ -10,7 +10,7 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Categories</h3>
+                            <h3 class="nk-block-title page-title">{{ trans('category.page_title') }}</h3>
                         </div>
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -44,8 +44,10 @@
                                     <thead>
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th><span class="sub-text">#</span></th>
-                                            <th><span class="sub-text">Name</span></th>
-                                            <th><span class="sub-text">Description</span></th>
+                                            <th><span class="sub-text">Name (English)</span></th>
+                                            <th><span class="sub-text">Name (Arabic)</span></th>
+                                            <th><span class="sub-text">Description (English)</span></th>
+                                            <th><span class="sub-text">Description (Arabic)</span></th>
                                             <th><span class="sub-text">Actions</span></th>
                                         </tr>
                                     </thead>
@@ -76,12 +78,20 @@
                 searchable: false
             },
             {
-                data: 'name',
-                name: 'name'
+                data: 'name_en',
+                name: 'name_en'
             },
             {
-                data: 'description',
-                name: 'description'
+                data: 'name_ar',
+                name: 'name_ar'
+            },
+            {
+                data: 'description_en',
+                name: 'description_en'
+            },
+            {
+                data: 'description_ar',
+                name: 'description_ar'
             },
             {
                 data: 'actions',

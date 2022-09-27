@@ -32,22 +32,40 @@
                                         @endif
 
                                         <div class="form-group">
-                                            <label for="name" class="control-label">Name <span class="text-danger">*<span></label>
+                                            <label for="name_en" class="control-label">Name (English) <span class="text-danger">*<span></label>
                                             @php 
-                                                $categoryName = '';
-                                                if (isset($category->name)) $categoryName = $category->name; 
-                                                if (old('name')) $categoryName = old('name'); 
+                                                $categoryName_en = '';
+                                                if (isset($category->name_en)) $categoryName_en = $category->name_en; 
+                                                if (old('name_en')) $categoryName_en = old('name_en'); 
                                             @endphp
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter category name" value="{{ $categoryName }}">
+                                            <input type="text" name="name_en" id="name_en" class="form-control" placeholder="Enter category name in english" value="{{ $categoryName_en }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name_ar" class="control-label">Name (Arabic) <span class="text-danger">*<span></label>
+                                            @php 
+                                                $categoryName_ar = '';
+                                                if (isset($category->name_ar)) $categoryName_ar = $category->name_ar; 
+                                                if (old('name_ar')) $categoryName_ar = old('name_ar'); 
+                                            @endphp
+                                            <input type="text" name="name_ar" id="name_ar" class="form-control" placeholder="Enter category name in arabic" value="{{ $categoryName_ar }}">
                                         </div>
                                         <div class="form-group">
                                             @php 
-                                                $categoryDescription = '';
-                                                if (isset($category->description)) $categoryDescription = $category->description; 
-                                                if (old('description')) $categoryDescription = old('description'); 
+                                                $categoryDescription_en = '';
+                                                if (isset($category->description_en)) $categoryDescription_en = $category->description_en; 
+                                                if (old('description_en')) $categoryDescription_en = old('description_en'); 
                                             @endphp
-                                            <label for="description" class="control-label">Description</label>
-                                            <textarea name="description" id="description" class="form-control" placeholder="Enter category description">{{ $categoryDescription }}</textarea>
+                                            <label for="description_en" class="control-label">Description (English)</label>
+                                            <textarea name="description_en" id="description_en" class="form-control" placeholder="Enter category description in english">{{ $categoryDescription_en }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            @php 
+                                                $categoryDescription_ar = '';
+                                                if (isset($category->description_ar)) $categoryDescription_ar = $category->description_ar; 
+                                                if (old('description_ar')) $categoryDescription_ar = old('description_ar'); 
+                                            @endphp
+                                            <label for="description_ar" class="control-label">Description (Arabic) </label>
+                                            <textarea name="description_ar" id="description_ar" class="form-control" placeholder="Enter category description in arabic">{{ $categoryDescription_ar }}</textarea>
                                         </div>
 
                                         <div class="form-group text-right mt-4">
