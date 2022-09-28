@@ -64,7 +64,7 @@
                                                 if (isset($category->description_ar)) $categoryDescription_ar = $category->description_ar; 
                                                 if (old('description_ar')) $categoryDescription_ar = old('description_ar'); 
                                             @endphp
-                                            <label for="description_ar" class="control-label">Description (Arabic) </label>
+                                            <label for="description_ar" class="control-label">Description (Arabic)</label>
                                             <textarea name="description_ar" id="description_ar" class="form-control" placeholder="Enter category description in arabic">{{ $categoryDescription_ar }}</textarea>
                                         </div>
 

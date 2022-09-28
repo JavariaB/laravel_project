@@ -42,29 +42,50 @@
                                                 <option value="" selected disabled>-- Choose a category --</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}" {{ $categoryId == $category->id ? 'selected' : '' }}>
-                                                        {{ ucwords($category->name) }}
+                                                        {{ ucwords($category->name_en) }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="name" class="control-label">Name <span class="text-danger">*<span></label>
+                                            <label for="name_en" class="control-label">Name (English)<span class="text-danger">*<span></label>
                                             @php 
-                                                $productName = '';
-                                                if (isset($product->name)) $productName = $product->name; 
-                                                if (old('name')) $productName = old('name'); 
+                                                $productNameEn = '';
+                                                if (isset($product->name_en)) $productNameEn = $product->name_en; 
+                                                if (old('name_en')) $productNameEn = old('name_en'); 
                                             @endphp
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter product name" value="{{ $productName }}">
+                                            <input type="text" name="name_en" id="name_en" class="form-control" placeholder="Enter product name (English)" value="{{ $productNameEn }}">
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="name_ar" class="control-label">Name (Arabic)<span class="text-danger">*<span></label>
+                                            @php 
+                                                $productNameAr = '';
+                                                if (isset($product->name_ar)) $productNameAr = $product->name_ar; 
+                                                if (old('name_ar')) $productNameAr = old('name_ar'); 
+                                            @endphp
+                                            <input type="text" name="name_ar" id="name_ar" class="form-control" placeholder="Enter product name (Arabic)" value="{{ $productNameAr }}">
+                                        </div>
+
                                         <div class="form-group">
                                             @php 
-                                                $productDescription = '';
-                                                if (isset($product->description)) $productDescription = $product->description; 
-                                                if (old('description')) $productDescription = old('description'); 
+                                                $productDescriptionEn = '';
+                                                if (isset($product->description_en)) $productDescriptionEn = $product->description_en; 
+                                                if (old('description_en')) $productDescriptionEn = old('description_en'); 
                                             @endphp
-                                            <label for="description" class="control-label">Description</label>
-                                            <textarea name="description" id="description" class="form-control" placeholder="Enter product description">{{ $productDescription }}</textarea>
+                                            <label for="description_en" class="control-label">Description (English)</label>
+                                            <textarea name="description_en" id="description_en" class="form-control" placeholder="Enter product description (English)">{{ $productDescriptionEn }}</textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @php 
+                                                $productDescriptionAr = '';
+                                                if (isset($product->description_ar)) $productDescriptionAr = $product->description_ar; 
+                                                if (old('description_ar')) $productDescriptionAr = old('description_ar'); 
+                                            @endphp
+                                            <label for="description_ar" class="control-label">Description (Arabic)</label>
+                                            <textarea name="description_ar" id="description_ar" class="form-control" placeholder="Enter product description (Arabic)">{{ $productDescriptionAr }}</textarea>
                                         </div>
 
                                         <div class="form-group text-right mt-4">

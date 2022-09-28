@@ -16,8 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
-            $table->string('name');
-            $table->string('description');
+            $table->string('name_en');
+            $table->string('name_ar');
+            $table->string('description_en');
+            $table->string('description_ar');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');

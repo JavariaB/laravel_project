@@ -27,18 +27,22 @@
                             <span class="nk-menu-text">Users</span>
                         </a>
                     </li>
+                    @can('category.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('categories.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
-                            <span class="nk-menu-text">Categories</span>
+                            <span class="nk-menu-text">Category</span>
                         </a>
                     </li>
+                    @endcan
+                    @can('product.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('products.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-card-view"></em></span>
                             <span class="nk-menu-text">Products</span>
                         </a>
                     </li>
+                    @endcan
                     <li class="nk-menu-item">
                         <a href="{{ route('language-lines.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-text2"></em></span>
