@@ -45,7 +45,8 @@
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th><span class="sub-text">#</span></th>
                                             <th><span class="sub-text">Name</span></th>
-                                            <th><span class="sub-text">Description</span></th>
+                                            <th><span class="sub-text">Email</span></th>
+                                            <th><span class="sub-text">Role</span></th>
                                             <th><span class="sub-text">Actions</span></th>
                                         </tr>
                                     </thead>
@@ -80,8 +81,12 @@
                 name: 'name'
             },
             {
-                data: 'description',
-                name: 'description'
+                data: 'email',
+                name: 'email'
+            },
+            {
+                data: 'role',
+                name: 'role'
             },
             {
                 data: 'actions',

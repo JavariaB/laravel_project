@@ -32,6 +32,22 @@
                                         @endif
 
                                         <div class="form-group">
+                                            <label for="role" class="control-label">Role <span class="text-danger">*<span></label>
+                                            @php 
+                                                $roleId = '';
+                                                if (isset($product->role_id)) $roleId = $product->role_id; 
+                                                if (old('role')) $roleId = old('role');
+                                            @endphp
+                                            <select name="role" id="role" class="form-control">
+                                                <option value="" selected disabled>-- Choose a role --</option>
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}" {{ $roleId == $role->id ? 'selected' : '' }}>
+                                                        {{ ucwords($role->name) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="name" class="control-label">Name <span class="text-danger">*<span></label>
                                             @php 
                                                 $userName = '';
@@ -42,12 +58,12 @@
                                         </div>
                                         <div class="form-group">
                                             @php 
-                                                $userDescription = '';
-                                                if (isset($user->description)) $userDescription = $user->description; 
-                                                if (old('description')) $userDescription = old('description'); 
+                                                $userEmail = '';
+                                                if (isset($user->email)) $userEmail = $user->email; 
+                                                if (old('email')) $userEmail = old('email'); 
                                             @endphp
-                                            <label for="description" class="control-label">Description</label>
-                                            <textarea name="description" id="description" class="form-control" placeholder="Enter user description">{{ $userDescription }}</textarea>
+                                            <label for="email" class="control-label">Email</label>
+                                            <input type="text" name="email" id="email" class="form-control" placeholder="Enter user email" value="{{ $userEmail }}">
                                         </div>
 
                                         <div class="form-group text-right mt-4">

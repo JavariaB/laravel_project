@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -20,70 +20,91 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::get();
-        return view('role.create', compact('permissions'));
+        return view('role.create', compact('permissions')); // pass $permissions to role.create view
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'category' => 'required|exists:categories,id',
-            'name' => 'required',
-            'description' => 'nullable',
+            'name' => 'required|unique:roles,name',
+            'permissions' => 'required|array',
+            'permissions.*' => 'exists:permissions,id'
+        ], [
+            'permissions.required' => 'Please, select at least one permission.'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors()->first());
         }
 
-        Product::create([
-            'category_id' => $request->input('category'),
+        Role::create([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
-        ]);
+        ])->syncPermissions($request->input('permissions'));
 
-        return redirect()->intended(route('products.index'))->with('success', 'Product has been added successfully.');
+        return redirect()->intended(route('roles.index'))->with('success', 'Role has been added successfully.');
     }
 
     public function edit($id)
     {
-        $product = Product::whereId($id)->first();
-        if (empty($product)) abort(404);
+        $permissions = Permission::get();
 
-        $categories = Category::get();
+        $role = Role::whereId($id)->with('permissions')->first();
+        if (empty($role)) abort(404);
 
-        return view('product.create', compact('product', 'categories'));
+        $view = view('role.create', [
+            'role' => $role,
+            'role_permissions' => $role->permissions->pluck('id')->toArray(),
+            'permissions' => $permissions,
+        ]);
+
+        return $view;
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'description' => 'nullable',
-            'category' => 'required|exists:categories,id'
+            'name' => 'required|unique:roles,name,' . $id,
+            'permissions' => 'required|array',
+            'permissions.*' => 'exists:permissions,id'
+        ], [
+            'permissions.required' => 'Please, select at least one permission.'
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors()->first());
         }
 
-        $product = Product::whereId($id)->first();
-        if (empty($product)) abort(404);
+        $role = Role::whereId($id)->first();
+        if (empty($role)) abort(404);
 
-        $product->update([
-            'category_id' => $request->input('category'),
+        $role->update([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
         ]);
 
-        return redirect()->intended(route('products.index'))->with('success', 'Prodcut has been updated successfully.');
+        $role->syncPermissions($request->input('permissions'));
+
+        return redirect()->intended(route('roles.index'))->with('success', 'Role has been updated successfully.');
     }
 
     public function destroy($id)
     {
-        $product = Product::whereId($id)->first();
-        if (empty($product)) abort(404);
+        $role = Role::whereId($id)->first();
+        if (empty($role)) abort(404);
 
-        $product->delete();
+        $user = User::whereHas('roles', function ($q) use ($id) {
+            return $q->whereId($id);
+        })->first();
+
+        if (!empty($user)) {
+            return response()->json(
+                [
+                    'message' => 'Unable to delete role which is assigned to a user.'
+                ],
+                JsonResponse::HTTP_BAD_REQUEST
+            );
+        }
+
+        $role->delete();
 
         return response()->json(['message' => 'Record deleted successfully.'], 200);
     }
@@ -112,7 +133,7 @@ class RoleController extends Controller
                     </a>';
         });
 
-        $dt->rawColumns(['name', 'created_at', 'actions']);
+        $dt->rawColumns(['name', 'guard_name', 'created_at', 'actions']);
         $dt->addIndexColumn();
 
         return $dt->make(true);

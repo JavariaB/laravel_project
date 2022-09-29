@@ -36,7 +36,7 @@
                                             @php 
                                                 $roleName = '';
                                                 if (isset($role->name)) $roleName = $role->name; 
-                                                if (old('name')) $roleName = old('name'); 
+                                                if (old('name')) $roleName = old('name');
                                             @endphp
                                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter role name" value="{{ $roleName }}">
                                         </div>
@@ -45,10 +45,16 @@
                                             <div class="col-md-12">
                                                 <h4 class="mt-1 mb-4">Permissions</h4>
                                                 <div class="row">
+                                                    @php 
+                                                        $rolePermissions = [];
+                                                        if (isset($role_permissions)) $rolePermissions = $role_permissions; 
+                                                        if (old('permissions')) $rolePermissions = old('permissions');
+                                                    @endphp
                                                     @foreach ($permissions as $permission)
                                                     <div class="col-md-3">
                                                         <div class="custom-control custom-checkbox pb-2">
-                                                            <input type="checkbox" class="custom-control-input" id="{{ $permission->id }}">
+                                                            <input type="checkbox" name="permissions[]" class="custom-control-input" value="{{ $permission->id }}" id="{{ $permission->id }}" 
+                                                                {!! isset($rolePermissions) && in_array($permission->id, $rolePermissions) ? 'checked' : '' !!}>
                                                             <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
                                                         </div>
                                                     </div>

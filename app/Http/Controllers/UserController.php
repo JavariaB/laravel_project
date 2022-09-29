@@ -17,14 +17,16 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('user.create');
+        $roles = Role::get();
+        return view('user.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'description' => 'nullable'
+            'email' => 'nullable',
+            'role' => 'required|exists:roles,id',
         ]);
 
         if ($validator->fails()) {
@@ -33,8 +35,8 @@ class UserController extends Controller
 
         User::create([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
-        ]);
+            'email' => $request->input('email'),
+        ])->assignRole($request->input('role'));
 
         return redirect()->intended(route('users.index'))->with('success', 'User has been added successfully.');
     }
@@ -88,8 +90,12 @@ class UserController extends Controller
             return '<a href="' . route('users.edit', $record->id) . '">' . $record->name . '</a>';
         });
 
-        $dt->addColumn('description', function ($record) {
-            return $record->description;
+        $dt->addColumn('email', function ($record) {
+            return $record->email;
+        });
+
+        $dt->addColumn('role', function ($record) {
+            return $record->roles->first()->name;
         });
 
         $dt->addColumn('actions', function ($record) {
@@ -102,7 +108,7 @@ class UserController extends Controller
                     </a>';
         });
 
-        $dt->rawColumns(['name', 'description', 'actions']);
+        $dt->rawColumns(['name', 'email', 'role', 'actions']);
         $dt->addIndexColumn();
 
         return $dt->make(true);
