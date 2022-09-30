@@ -35,7 +35,7 @@
                                             <label for="role" class="control-label">Role <span class="text-danger">*<span></label>
                                             @php 
                                                 $roleId = '';
-                                                if (isset($product->role_id)) $roleId = $product->role_id; 
+                                                if (isset($user)) $roleId = optional($user->roles->first())->id; 
                                                 if (old('role')) $roleId = old('role');
                                             @endphp
                                             <select name="role" id="role" class="form-control">

@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:role.read', ['only' => ['index', 'datatable']]);
+        $this->middleware('permission:role.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role.update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role.delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         return view('role.index');
@@ -116,7 +123,10 @@ class RoleController extends Controller
         $dt = DataTables::of($roles);
 
         $dt->addColumn('name', function ($record) {
-            return '<a href="' . route('roles.edit', $record->id) . '">' . $record->name . '</a>';
+            if (auth()->user()->can('role.update')) {
+                return '<a href="' . route('roles.edit', $record->id) . '">' . $record->name . '</a>';
+            }
+            return $record->name;
         });
 
         $dt->addColumn('created_at', function ($record) {
@@ -124,13 +134,21 @@ class RoleController extends Controller
         });
 
         $dt->addColumn('actions', function ($record) {
-            return '<a href="' . route('roles.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#roles-dt">
-                        <span class="ni ni-trash"></span>
-                    </a>
+            $deleteBtn = $updateBtn = '';
 
-                    <a href="' . route('roles.edit', $record->id) . '" class="btn btn-sm btn-primary">
+            if (auth()->user()->can('role.update')) {
+                $updateBtn = '<a href="' . route('roles.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#roles-dt">
+                        <span class="ni ni-trash"></span>
+                    </a>';
+            }
+
+            if (auth()->user()->can('role.delete')) {
+                $deleteBtn = '<a href="' . route('roles.edit', $record->id) . '" class="btn btn-sm btn-primary">
                         <span class="ni ni-edit"></span>
                     </a>';
+            }
+
+            return $updateBtn . $deleteBtn;
         });
 
         $dt->rawColumns(['name', 'guard_name', 'created_at', 'actions']);

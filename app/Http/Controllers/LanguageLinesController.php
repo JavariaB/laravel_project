@@ -9,6 +9,13 @@ use Spatie\TranslationLoader\LanguageLine;
 
 class LanguageLinesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:translation.read', ['only' => ['index', 'datatable']]);
+        $this->middleware('permission:translation.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:translation.update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:translation.delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         return view('language-lines.index');
@@ -58,9 +65,15 @@ class LanguageLinesController extends Controller
         });
 
         $dt->addColumn('actions', function ($record) {
-            return '<a href="' . route('language-lines.edit', $record->id) . '" class="btn btn-sm btn-primary">
+            $updateBtn = '';
+
+            if (auth()->user()->can('translation.update')) {
+                $updateBtn = '<a href="' . route('language-lines.edit', $record->id) . '" class="btn btn-sm btn-primary">
                         <span class="ni ni-edit"></span>
                     </a>';
+            }
+
+            return $updateBtn;
         });
 
         $dt->rawColumns(['text_en', 'text_ar', 'actions']);

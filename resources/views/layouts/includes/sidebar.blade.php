@@ -21,12 +21,14 @@
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
+                    @can('user.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('users.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                             <span class="nk-menu-text">Users</span>
                         </a>
                     </li>
+                    @endcan
                     @can('category.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('categories.index') }}" class="nk-menu-link">
@@ -43,24 +45,30 @@
                         </a>
                     </li>
                     @endcan
+                    @can('translation.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('language-lines.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-text2"></em></span>
                             <span class="nk-menu-text">Language Lines</span>
                         </a>
                     </li>
+                    @endcan
+                    @can('notification.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('notifications.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-bell"></em></span>
                             <span class="nk-menu-text">Notifications</span>
                         </a>
                     </li>
+                    @endcan
+                    @can('role.read')
                     <li class="nk-menu-item">
                         <a href="{{ route('roles.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-pie"></em></span>
                             <span class="nk-menu-text">Roles</span>
                         </a>
                     </li>
+                    @endcan
                 </ul>
             </div>
         </div>

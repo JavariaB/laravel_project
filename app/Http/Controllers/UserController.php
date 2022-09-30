@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:user.read', ['only' => ['index', 'datatable']]);
+        $this->middleware('permission:user.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user.update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user.delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         return view('user.index');
@@ -43,17 +50,20 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::whereId($id)->first();
+        $user = User::whereId($id)->with('roles')->first();
         if (empty($user)) abort(404);
+        
+        $roles = Role::get();
 
-        return view('user.create', compact('user'));
+        return view('user.create', compact('user', 'roles'));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'description' => 'nullable'
+            'email' => 'nullable',
+            'role' => 'required|exists:roles,id',
         ]);
 
         if ($validator->fails()) {
@@ -65,8 +75,10 @@ class UserController extends Controller
 
         $user->update([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
+            'email' => $request->input('email'),
         ]);
+
+        $user->syncPermissions($request->input('role'));
 
         return redirect()->intended(route('users.index'))->with('success', 'User has been updated successfully.');
     }
@@ -87,7 +99,11 @@ class UserController extends Controller
         $dt = DataTables::of($user);
 
         $dt->addColumn('name', function ($record) {
+            if (auth()->user()->can('user.update')) {
             return '<a href="' . route('users.edit', $record->id) . '">' . $record->name . '</a>';
+            }
+
+            return $record->name;
         });
 
         $dt->addColumn('email', function ($record) {
@@ -95,17 +111,25 @@ class UserController extends Controller
         });
 
         $dt->addColumn('role', function ($record) {
-            return $record->roles->first()->name;
+            return optional($record->roles->first())->name;
         });
 
         $dt->addColumn('actions', function ($record) {
-            return '<a href="' . route('users.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#users-dt">
-                        <span class="ni ni-trash"></span>
-                    </a>
+            $deleteBtn = $updateBtn = '';
 
-                    <a href="' . route('users.edit', $record->id) . '" class="btn btn-sm btn-primary">
+            if (auth()->user()->can('user.update')) {
+                $updateBtn = '<a href="' . route('users.destroy', $record->id) . '" class="btn btn-sm btn-danger" delete-btn data-datatable="#users-dt">
+                        <span class="ni ni-trash"></span>
+                    </a>';
+            }
+
+            if (auth()->user()->can('user.delete')) {
+                $deleteBtn = '<a href="' . route('users.edit', $record->id) . '" class="btn btn-sm btn-primary">
                         <span class="ni ni-edit"></span>
                     </a>';
+            }
+
+            return $deleteBtn . $updateBtn ;
         });
 
         $dt->rawColumns(['name', 'email', 'role', 'actions']);

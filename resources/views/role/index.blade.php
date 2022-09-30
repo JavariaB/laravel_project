@@ -12,6 +12,7 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Roles</h3>
                         </div>
+                        @can('role.create')
                         <div class="nk-block-head-content">
                             <div class="toggle-wrap nk-block-tools-toggle">
                                 <a href="javascript:void(0);" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu">
@@ -29,6 +30,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endcan
                     </div>
                 </div>
                 <div class="nk-block">
