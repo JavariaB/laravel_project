@@ -45,6 +45,7 @@ class UserController extends Controller
         User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'password' => Hash::make(Str::random(12)),
         ])->assignRole($request->input('role'));
 
         return redirect()->intended(route('users.index'))->with('success', 'User has been added successfully.');
@@ -78,7 +79,6 @@ class UserController extends Controller
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make(Str::rand(12)),
         ]);
 
         $user->syncPermissions($request->input('role'));
