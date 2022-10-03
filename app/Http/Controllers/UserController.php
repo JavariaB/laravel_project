@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -32,23 +33,33 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'nullable',
-            'role' => 'required|exists:roles,id',
-        ]);
+        try {
+            $validator = Validator::make($request->all(), [
+                'role' => 'required|exists:roles,id',
+                'name' => 'required',
+                'email' => 'required|unique:users,email',
+                'password' => 'required|confirmed',
+            ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator->errors()->first());
+            if ($validator->fails()) {
+                return redirect()->back()->withInput($request->all())->withErrors($validator->errors()->first());
+            }
+
+            DB::beginTransaction();
+
+            User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+            ])->assignRole($request->input('role'));
+
+            DB::commit();
+
+            return redirect()->intended(route('users.index'))->with('success', 'User has been added successfully.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withInput($request->all())->withErrors($e->getMessage());
         }
-
-        User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make(Str::random(12)),
-        ])->assignRole($request->input('role'));
-
-        return redirect()->intended(route('users.index'))->with('success', 'User has been added successfully.');
     }
 
     public function edit($id)

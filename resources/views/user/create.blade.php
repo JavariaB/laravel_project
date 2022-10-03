@@ -65,6 +65,16 @@
                                             <label for="email" class="control-label">Email</label>
                                             <input type="text" name="email" id="email" class="form-control" placeholder="Enter user email" value="{{ $userEmail }}">
                                         </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="password" class="control-label">Password</label>
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter user password">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password_confirmation" class="control-label">Password Confirmation</label>
+                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Enter user password confirmation">
+                                        </div>
 
                                         <div class="form-group text-right mt-4">
                                             <a href="{{ route('users.index') }}" class="btn btn-light">Cancel</a>
