@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -75,9 +74,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'nullable',
             'role' => 'required|exists:roles,id',
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+            'password' => 'nullable|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -92,6 +92,12 @@ class UserController extends Controller
             'email' => $request->input('email'),
         ]);
 
+        if (!empty($request->input('password'))) {
+            $user->update([
+                'password' => Hash::make($request->input('password')),
+            ]);
+        }
+        
         $user->syncPermissions($request->input('role'));
 
         return redirect()->intended(route('users.index'))->with('success', 'User has been updated successfully.');
