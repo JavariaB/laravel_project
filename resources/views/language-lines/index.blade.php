@@ -12,6 +12,23 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Language Lines</h3>
                         </div>
+                        <div class="nk-block-head-content">
+                            <div class="toggle-wrap nk-block-tools-toggle">
+                                <a href="javascript:void(0);" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu">
+                                    <em class="icon ni ni-more-v"></em>
+                                </a>
+                                <div class="toggle-expand-content" data-content="pageMenu">
+                                    <ul class="nk-block-tools g-3">
+                                        <li class="nk-block-tools-opt">
+                                            <a href="{{ route('language-lines.create') }}" class="btn btn-primary">
+                                                <em class="icon ni ni-plus"></em>
+                                                <span>Add Language Line</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="nk-block">
@@ -27,10 +44,11 @@
                                     <thead>
                                         <tr class="nk-tb-item nk-tb-head">
                                             <th><span class="sub-text">#</span></th>
-                                            <th><span class="sub-text">Group</span></th>
                                             <th><span class="sub-text">Key</span></th>
-                                            <th><span class="sub-text">Text (English)</span></th>
-                                            <th><span class="sub-text">Text (Arabic)</span></th>
+                                            <th><span class="sub-text">Title (English)</span></th>
+                                            <th><span class="sub-text">Title (Arabic)</span></th>
+                                            <th><span class="sub-text">Description (English)</span></th>
+                                            <th><span class="sub-text">Description (Arabic)</span></th>
                                             <th><span class="sub-text">Actions</span></th>
                                         </tr>
                                     </thead>
@@ -61,20 +79,24 @@
                 searchable: false
             },
             {
-                data: 'group',
-                name: 'group'
-            },
-            {
                 data: 'key',
                 name: 'key'
             },
             {
-                data: 'text_en',
-                name: 'text_en'
+                data: 'title_en',
+                name: 'title_en'
             },
             {
-                data: 'text_ar',
-                name: 'text_ar'
+                data: 'title_ar',
+                name: 'title_ar'
+            },
+            {
+                data: 'description_en',
+                name: 'description_en'
+            },
+            {
+                data: 'description_ar',
+                name: 'description_ar'
             },
             {
                 data: 'actions',
